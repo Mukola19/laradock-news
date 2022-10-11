@@ -18,11 +18,9 @@
             <div>
                 <img src="{{ asset('storage/' . $article->img) }}" height="600" alt="">
             </div>
-            {{-- <div class=" d-flex flex-column justify-contents-center"> --}}
-                <div class="mt-5 article__text ">
-                    <p class=" mb-4 text-center">{!! $article->text !!}</p>
-                </div>
-            {{-- </div> --}}
+            <div class="mt-5 article__text ">
+                <p class=" mb-4 text-center">{!! $article->text !!}</p>
+            </div>
         </div>
 
     </div>

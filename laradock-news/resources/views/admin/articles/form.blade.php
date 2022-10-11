@@ -6,7 +6,7 @@
 @isset($article)
     @section('title', 'Редегування')
 @else
-    @section('title', 'Створення')
+@section('title', 'Створення')
 @endisset
 
 
@@ -26,18 +26,18 @@
 
     </div>
 
-    @if(session()->has('success'))
-       <div class="alert alert-success">
-          {{ session()->get('success') }}
-      </div>
+    @if (session()->has('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
     @endif
 
-    @if(session()->has('warning'))
-       <div class="alert alert-warning">
-          {{ session()->get('warning') }}
-       </div>
+    @if (session()->has('warning'))
+        <div class="alert alert-warning">
+            {{ session()->get('warning') }}
+        </div>
     @endif
- 
+
 
 
     <div class="card card-primary">
@@ -46,24 +46,20 @@
                action="{{ route('admin.articles.update', $article) }}"
             @else
                action="{{ route('admin.articles.store') }}"
-            @endisset
-        >
+            @endisset>
 
             @isset($article)
-               @method('PUT')
+                @method('PUT')
             @endisset
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
                     <label for="article">Назва статті</label>
-                    <input
-                       name="title" 
-                       class="form-control" 
-                       id="article" 
-                       placeholder="Ведіть назву статті"
-                       value="{{ $article->title ?? old('title') }}"
-                    >
+                    <input name="title" class="form-control" id="article" placeholder="Ведіть назву статті"
+                        value="{{ $article->title ?? old('title') }}">
+
+                        {{ old('img')}}
 
                     @if ($errors->has('title'))
                         <span class="text-danger">{{ $errors->first('title') }}</span>
@@ -73,12 +69,7 @@
 
                 <div class="form-group">
                     <label for="text">Текст статті </label>
-                    <textarea
-                      name="text"
-                      class="form-control overflow-hidden"
-                      id="text" 
-                      placeholder="Ведіть текст статті"
-                    >{{ $article->text ?? old('text') }}</textarea>
+                    <textarea name="text" class="form-control overflow-hidden" id="text" placeholder="Ведіть текст статті">{{ $article->text ?? old('text') }}</textarea>
 
                     @if ($errors->has('text'))
                         <span class="text-danger">{{ $errors->first('text') }}</span>
@@ -87,59 +78,31 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="uploadImg">Загрузка зображення</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input 
-                              type="file" 
-                              name="img" 
-                              class="custom-file-input" 
-                              id="uploadImg"
-                              value="{{ $article->img ?? old('img') }}"
-                            >
-                          
-                            <label class="custom-file-label" for="uploadImg">
-                                @isset($article)
-                                   Змінити зображення
-                                @else
-                                    Виберіть зображення
-                                @endisset
-                             </label>
-                        </div>
 
-                        <div class="input-group-append">
-                            <span class="input-group-text"> Загрузити</span>
-                        </div>
+                    <label for="uploadImg" class="form-label">Загрузка зображення</label>
+                    <input class="form-control form-control" id="uploadImg" type="file" name="img">
 
-                    </div>
                     @if ($errors->has('img'))
                         <span class="text-danger">{{ $errors->first('img') }}</span>
                     @endif
                 </div>
 
+                <div class="col-md-12 mb-3 " id="preview-image">
+                    @isset($article)
+                        <img alt="preview image" src="{{ asset('storage/' . $article->img) }}" style="max-height: 250px;">
+                    @endisset
+                </div>
+
                 <div class="form-group">
                     <label for="tags">Тегі статті</label>
-                    <input
-                       class="form-control" 
-                       type="text" 
-                       data-role="tagsinput" 
-                       name="tags" 
-                       id="tags"
-                       placeholder="Добавте тег" 
-                       value="{{ $article->tags ?? old('tags') }}"
-                    >
+                    <input class="form-control" type="text" data-role="tagsinput" name="tags" id="tags"
+                        placeholder="Добавте тег" value="{{ $article->tags ?? old('tags') }}">
 
                 </div>
 
                 <div class="form-group form-check">
-                    <input 
-                      type="checkbox" 
-                      name="active" 
-                      class="form-check-input" 
-                      id="active" 
-                      checked
-                      value="{{ $article->active ?? old('active') }}"
-                    >
+                    <input type="checkbox" name="active" class="form-check-input" id="active" checked
+                        value="{{ $article->active ?? old('active') }}">
                     <label class="form-check-label" for="active">Показувати статтю</label>
 
                     @if ($errors->has('active'))
@@ -156,6 +119,8 @@
             </div>
         </form>
     </div>
+
+
 
 
 

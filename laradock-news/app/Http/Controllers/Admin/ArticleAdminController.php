@@ -39,6 +39,7 @@ class ArticleAdminController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'title' => ['required', 'unique:articles'],
             'text' => 'required',
@@ -53,6 +54,7 @@ class ArticleAdminController extends Controller
         // saving the photo and writing the path to the model
         $article->img = $request->file('img')->store('articles');
 
+
         // create an array of tags
         $tags = explode(',', $request->tags);
 
@@ -66,10 +68,6 @@ class ArticleAdminController extends Controller
             }
             return back()->withInput()->with('warning', $warningText);
         }
-
-
-
-
       
 
         $tagsAll = Tag::all();
